@@ -1,0 +1,34 @@
+{
+  "name": "react-easy-facebook",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "author": "Osama Adam <https://github.com/osamaadam>",
+  "description": "An unopinionated solution for handling Facebook login on React using React hooks.",
+  "license": "MIT",
+  "homepage": "https://github.com/osamaadam/react-easy-facebook",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/osamaadam/react-easy-facebook.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-hooks",
+    "facebook-login",
+    "react-facebook-login",
+    "facebook",
+    "facebook-oauth"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && tsc"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.43",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "typescript": "^3.9.7"
+  }
+}
