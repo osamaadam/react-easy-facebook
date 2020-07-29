@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "main": "dist/index.js",
   "author": "Osama Adam <https://github.com/osamaadam>",
-  "description": "An unopinionated solution for handling Facebook login on React using React hooks.",
+  "description": "An abstracted approach to handling Facebook OAuth using Hooks and Typescript!",
   "license": "MIT",
   "homepage": "https://github.com/osamaadam/react-easy-facebook",
   "repository": {
     "type": "git",
     "url": "https://github.com/osamaadam/react-easy-facebook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/osamaadam/react-easy-facebook/issues"
   },
   "keywords": [
     "react",

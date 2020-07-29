@@ -8,6 +8,6 @@ export interface Props {
 }
 declare const useFacebook: (props: Props) => {
     fbRes: FacebookResponse | undefined;
-    login: (fields?: string | undefined) => void;
+    login: (inputFields?: Props["fields"]) => void;
 };
 export default useFacebook;

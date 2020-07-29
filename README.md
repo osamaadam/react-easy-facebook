@@ -19,7 +19,6 @@ $ yarn add react-easy-facebook
 
 ```tsx
 const App = () => {
-
   /* Initializing the hook by giving it the facebook app id. */
 
   const { fbRes, login } = useFacebook({
@@ -28,7 +27,7 @@ const App = () => {
 
   const handleLogin = () => {
     login();
-  }
+  };
 
   /*
    fbRes is a react state so subscribe to its updates however you'd like to.
@@ -41,68 +40,68 @@ const App = () => {
 
   /* Trigger the login action by calling login() */
 
-  return (<button onClick={handleLogin}>login</button>);
+  return <button onClick={handleLogin}>login</button>;
 };
 ```
 
 ### Using with custom scopes
 
 ```tsx
-  const { fbRes, login } = useFacebook({
-    appId: "5135128098923510",
-    options: {
-      scope: ["email", "user_birthday"]
-    },
-  });
+const { fbRes, login } = useFacebook({
+  appId: "5135128098923510",
+  options: {
+    scope: ["email", "user_birthday"],
+  },
+});
 ```
 
 Or
 
 ```tsx
-  const { fbRes, login } = useFacebook({
-    appId: "5135128098923510",
-    options: {
-      scope: "email,user_birthday"
-    },
-  });
+const { fbRes, login } = useFacebook({
+  appId: "5135128098923510",
+  options: {
+    scope: "email,user_birthday",
+  },
+});
 ```
 
 ### Using with custom scopes and fields
 
 ```tsx
-  const { fbRes, login } = useFacebook({
-    appId: "5135128098923510",
-    options: {
-      scope: ["email", "user_birthday"]
-    },
-    fields: ["id", "name", "email"],
-  });
+const { fbRes, login } = useFacebook({
+  appId: "5135128098923510",
+  options: {
+    scope: ["email", "user_birthday"],
+  },
+  fields: ["id", "name", "email"],
+});
 ```
 
 Or
 
 ```tsx
-  const { fbRes, login } = useFacebook({
-    appId: "5135128098923510",
-    options: {
-      scope: "email,user_birthday"
-    },
-    fields: "id,name,email",
-  });
+const { fbRes, login } = useFacebook({
+  appId: "5135128098923510",
+  options: {
+    scope: "email,user_birthday",
+  },
+  fields: "id,name,email",
+});
 ```
 
-Generally, you should use the array syntax to get intellisense hints. But you'll always need to use the string syntax when hitting an edge like picture.
+Generally, you should use the array syntax to get Intellisense hints. But you'll always need to use the string syntax when hitting an edge like _picture_.
 
 #### Example
 
 ```tsx
-  const { fbRes, login } = useFacebook({
-    appId: "5135128098923510",
-    options: {
-      scope: "email"
-    },
-    fields: "id,name,email,picture{height,width,url,is_silhouette}",
-  });
+const { fbRes, login } = useFacebook({
+  appId: "5135128098923510",
+  options: {
+    scope: "email",
+  },
+  fields: "id,name,email,picture{height,width,url,is_silhouette}",
+});
 ```
 
 For more information about the different fields and edges, visit [the Facebook docs](https://developers.facebook.com/docs/graph-api/reference/user).
@@ -119,16 +118,16 @@ const App = () => {
   });
 
   const handleLogin = () => {
-    login(["id","email", "name"]);
+    login(["id", "email", "name"]);
     // or
     // login("id,email,name")
-  }
+  };
 
   React.useEffect(() => {
     if (fbRes) console.log(fbRes);
   }, [fbRes]);
 
-  return (<button onClick={handleLogin}>login</button>);
+  return <button onClick={handleLogin}>login</button>;
 };
 ```
 
@@ -150,7 +149,7 @@ $ yarn link react-easy-facebook
 
 Now, simply start you local project.
 
-**If you get the rules of hooks error, do the instructions specified [*in this issue*](https://github.com/facebook/react/issues/14257#issuecomment-595183610)**
+**If you get the rules of hooks error, do the instructions specified [_in this issue_](https://github.com/facebook/react/issues/14257#issuecomment-595183610)**
 
 ## LICENSE
 
