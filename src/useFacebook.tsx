@@ -61,13 +61,15 @@ const useFacebook = (props: Props) => {
       );
   };
 
-  const login = React.useCallback((fields?: string) => {
+  const login = React.useCallback((inputFields?: Props["fields"]) => {
+    const sanitizedFields = inputFields?.toString() || defaultFields;
     extendedWindow.FB?.getLoginStatus((res) => {
       if (res.error) setFbRes(res);
-      else if (res.status === "connected") checkLoginState(res, fields);
+      else if (res.status === "connected")
+        checkLoginState(res, sanitizedFields);
       else
         extendedWindow.FB?.login((res) => {
-          checkLoginState(res, fields);
+          checkLoginState(res, sanitizedFields);
         }, defaultOptions);
     }, force);
   }, []);
