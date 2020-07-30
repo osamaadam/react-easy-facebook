@@ -26,6 +26,7 @@ export interface ExtendedWindow extends Window {
         }) => any;
         getLoginStatus: (callback: (res: FacebookResponse) => any, force?: boolean) => any;
         login: (callback: (res: FacebookResponse) => any, options?: Options) => any;
+        logout: (callback: (res: FacebookResponse) => any) => any;
         api: (path: string, method: "GET" | "POST" | "DELETE", params: {
             fields: string;
         }, callback: (user: FacebookResponse["user"]) => any) => any;
@@ -63,6 +64,7 @@ export declare type User = {
         url?: number;
         is_silhouette?: boolean;
     };
+    [key: string]: any;
 };
 export declare type FacebookFields = "id" | "access_code" | "account_claim_time" | "account_invite_time" | "active" | "address" | "age_range" | "birthday" | "can_delete" | "can_review_measurement_request" | "email" | "name" | "first_name" | "middle_name" | "last_name" | "gender" | "hometown" | "location" | "link" | "profile_pic" | "public_key";
 declare type Scope = "ads_management" | "ads_read" | "attribution_read" | "business_management" | "catalog_management" | "email" | "groups_access_member_info" | "instagram_basic" | "instagram_manage_comments" | "instagram_manage_insights" | "leads_retrieval" | "pages_manage_ads" | "pages_manage_cta" | "pages_manage_instant_articles" | "pages_manage_engagement" | "pages_manage_metadata" | "pages_manage_posts" | "pages_messaging" | "pages_read_engagement" | "pages_read_user_content" | "pages_show_list" | "pages_user_gender" | "pages_user_locale" | "pages_user_timezone" | "publish_to_groups" | "publish_video" | "read_insights" | "user_age_range" | "user_birthday" | "user_friends" | "user_gender" | "user_hometown" | "user_likes" | "user_link" | "user_photos" | "user_posts" | "user_videos" | "whatsapp_business_management";

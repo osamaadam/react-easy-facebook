@@ -7,7 +7,8 @@ export interface Props {
     fields?: Partial<FacebookFields>[] | string;
 }
 declare const useFacebook: (props: Props) => {
-    fbRes: FacebookResponse | undefined;
+    response: FacebookResponse | undefined;
     login: (inputFields?: Props["fields"]) => void;
+    logout: () => void;
 };
 export default useFacebook;

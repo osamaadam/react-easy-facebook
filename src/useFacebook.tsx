@@ -5,6 +5,8 @@ import {
   FacebookResponse,
   Options,
 } from "./types";
+import { asyncInit } from "./asyncInit";
+import { loadSdk } from "./loadSdk";
 
 export interface Props {
   appId: string;
@@ -14,6 +16,8 @@ export interface Props {
   fields?: Partial<FacebookFields>[] | string;
 }
 
+const extendedWindow: ExtendedWindow = window;
+
 const useFacebook = (props: Props) => {
   const { appId, version, options, force, fields } = props;
 
@@ -22,33 +26,6 @@ const useFacebook = (props: Props) => {
   const defaultOptions = { ...options, scope: defaultScope };
 
   const [fbRes, setFbRes] = React.useState<FacebookResponse | undefined>();
-
-  const extendedWindow: ExtendedWindow = window;
-
-  const asyncInit = () => {
-    extendedWindow.fbAsyncInit = () => {
-      extendedWindow.FB?.init({
-        appId,
-        cookie: true,
-        xfbml: true,
-        version: version || "v7.0",
-      });
-    };
-  };
-
-  const loadSdk = () => {
-    ((d, s, id) => {
-      let js: HTMLIFrameElement,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s) as HTMLIFrameElement;
-      js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode?.insertBefore(js, fjs);
-    })(document, "script", "facebook-jssdk");
-  };
 
   const checkLoginState = (
     res: FacebookResponse,
@@ -74,20 +51,20 @@ const useFacebook = (props: Props) => {
     }, force);
   }, []);
 
+  const logout = React.useCallback(() => {
+    extendedWindow.FB?.logout((res) => {
+      setFbRes(res);
+    });
+  }, []);
+
   React.useEffect(() => {
-    if (document.getElementById("facebook-jssdk")) {
-      extendedWindow.FB?.getLoginStatus((res) => {
-        if (res.error) setFbRes(res);
-        else if (res.status === "connected")
-          checkLoginState(res, defaultFields);
-      });
-    } else {
-      asyncInit();
+    if (!document.getElementById("facebook-jssdk")) {
       loadSdk();
+      asyncInit({ appId, version });
     }
   }, []);
 
-  return { fbRes, login };
+  return { response: fbRes, login, logout };
 };
 
 export default useFacebook;

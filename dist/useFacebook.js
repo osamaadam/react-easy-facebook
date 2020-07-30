@@ -1,35 +1,13 @@
 import React from "react";
+import { asyncInit } from "./asyncInit";
+import { loadSdk } from "./loadSdk";
+const extendedWindow = window;
 const useFacebook = (props) => {
     const { appId, version, options, force, fields } = props;
     const defaultFields = (fields === null || fields === void 0 ? void 0 : fields.toString()) || "id,email,name";
     const defaultScope = (options === null || options === void 0 ? void 0 : options.scope.toString()) || "email";
     const defaultOptions = Object.assign(Object.assign({}, options), { scope: defaultScope });
     const [fbRes, setFbRes] = React.useState();
-    const extendedWindow = window;
-    const asyncInit = () => {
-        extendedWindow.fbAsyncInit = () => {
-            var _a;
-            (_a = extendedWindow.FB) === null || _a === void 0 ? void 0 : _a.init({
-                appId,
-                cookie: true,
-                xfbml: true,
-                version: version || "v7.0",
-            });
-        };
-    };
-    const loadSdk = () => {
-        ((d, s, id) => {
-            var _a;
-            let js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            (_a = fjs.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(js, fjs);
-        })(document, "script", "facebook-jssdk");
-    };
     const checkLoginState = (res, fields = defaultFields) => {
         var _a;
         if (res.error)
@@ -52,22 +30,19 @@ const useFacebook = (props) => {
                 }, defaultOptions);
         }, force);
     }, []);
-    React.useEffect(() => {
+    const logout = React.useCallback(() => {
         var _a;
-        if (document.getElementById("facebook-jssdk")) {
-            (_a = extendedWindow.FB) === null || _a === void 0 ? void 0 : _a.getLoginStatus((res) => {
-                if (res.error)
-                    setFbRes(res);
-                else if (res.status === "connected")
-                    checkLoginState(res, defaultFields);
-            });
-        }
-        else {
-            asyncInit();
+        (_a = extendedWindow.FB) === null || _a === void 0 ? void 0 : _a.logout((res) => {
+            setFbRes(res);
+        });
+    }, []);
+    React.useEffect(() => {
+        if (!document.getElementById("facebook-jssdk")) {
             loadSdk();
+            asyncInit({ appId, version });
         }
     }, []);
-    return { fbRes, login };
+    return { response: fbRes, login, logout };
 };
 export default useFacebook;
 //# sourceMappingURL=useFacebook.js.map

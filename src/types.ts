@@ -31,6 +31,7 @@ export interface ExtendedWindow extends Window {
       force?: boolean
     ) => any;
     login: (callback: (res: FacebookResponse) => any, options?: Options) => any;
+    logout: (callback: (res: FacebookResponse) => any) => any;
     api: (
       path: string,
       method: "GET" | "POST" | "DELETE",
@@ -72,6 +73,7 @@ export type User = {
     url?: number;
     is_silhouette?: boolean;
   };
+  [key: string]: any;
 };
 
 export type FacebookFields =
