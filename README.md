@@ -21,7 +21,7 @@ $ yarn add react-easy-facebook
 const App = () => {
   /* Initializing the hook by giving it the facebook app id. */
 
-  const { fbRes, login } = useFacebook({
+  const { response, login, logout } = useFacebook({
     appId: "5135128098923510", // Fake id but hey, give it a try.
   });
 
@@ -29,25 +29,35 @@ const App = () => {
     login();
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   /*
-   fbRes is a react state so subscribe to its updates however you'd like to.
+   response is a react state so subscribe to its updates however you'd like to.
    Here, I'm printing it inside a useEffect.
   */
 
   React.useEffect(() => {
-    if (fbRes) console.log(fbRes);
-  }, [fbRes]);
+    if (response) console.log(response);
+  }, [response]);
 
   /* Trigger the login action by calling login() */
+  /* Similarly, trigger the logout action by calling logout() */
 
-  return <button onClick={handleLogin}>login</button>;
+  return (
+    <>
+      <button onClick={handleLogin}>login</button>
+      <button onClick={handleLogout}>logout</button>
+    </>
+  );
 };
 ```
 
 ### Using with custom scopes
 
 ```tsx
-const { fbRes, login } = useFacebook({
+const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
     scope: ["email", "user_birthday"],
@@ -58,7 +68,7 @@ const { fbRes, login } = useFacebook({
 Or
 
 ```tsx
-const { fbRes, login } = useFacebook({
+const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
     scope: "email,user_birthday",
@@ -69,7 +79,7 @@ const { fbRes, login } = useFacebook({
 ### Using with custom scopes and fields
 
 ```tsx
-const { fbRes, login } = useFacebook({
+const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
     scope: ["email", "user_birthday"],
@@ -81,7 +91,7 @@ const { fbRes, login } = useFacebook({
 Or
 
 ```tsx
-const { fbRes, login } = useFacebook({
+const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
     scope: "email,user_birthday",
@@ -95,7 +105,7 @@ Generally, you should use the array syntax to get Intellisense hints. But you'll
 #### Example
 
 ```tsx
-const { fbRes, login } = useFacebook({
+const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
     scope: "email",
@@ -112,7 +122,7 @@ You may override the fields specified in the hook initialization by passing the 
 
 ```tsx
 const App = () => {
-  const { fbRes, login } = useFacebook({
+  const { response, login } = useFacebook({
     appId: "5135128098923510",
     fields: ["id", "email"],
   });
@@ -124,8 +134,8 @@ const App = () => {
   };
 
   React.useEffect(() => {
-    if (fbRes) console.log(fbRes);
-  }, [fbRes]);
+    if (response) console.log(response);
+  }, [response]);
 
   return <button onClick={handleLogin}>login</button>;
 };
