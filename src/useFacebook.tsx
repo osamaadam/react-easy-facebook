@@ -12,14 +12,14 @@ export interface Props {
   appId: string;
   version?: string;
   options?: Options;
-  force?: boolean;
   fields?: Partial<FacebookFields>[] | string;
+  handleError?: (error: Error) => any;
 }
 
 const extendedWindow: ExtendedWindow = window;
 
 const useFacebook = (props: Props) => {
-  const { appId, version, options, force, fields } = props;
+  const { appId, version, options, fields, handleError } = props;
 
   const defaultFields = fields?.toString() || "id,email,name";
   const defaultScope = options?.scope.toString() || "email";
@@ -31,36 +31,56 @@ const useFacebook = (props: Props) => {
     res: FacebookResponse,
     fields: string = defaultFields
   ) => {
-    if (res.error) setFbRes(res);
-    else if (res.authResponse)
-      extendedWindow.FB?.api("/me", "GET", { fields }, (user) =>
-        setFbRes({ ...res, user })
-      );
+    try {
+      if (res.authResponse)
+        extendedWindow.FB?.api("/me", "GET", { fields }, (user) =>
+          setFbRes({ ...res, user })
+        );
+    } catch (error) {
+      if (handleError) handleError(error);
+      else console.error(error);
+    }
   };
 
-  const login = React.useCallback((inputFields?: Props["fields"]) => {
-    const sanitizedFields = inputFields?.toString() || defaultFields;
-    extendedWindow.FB?.getLoginStatus((res) => {
-      if (res.error) setFbRes(res);
-      else if (res.status === "connected")
-        checkLoginState(res, sanitizedFields);
-      else
-        extendedWindow.FB?.login((res) => {
-          checkLoginState(res, sanitizedFields);
-        }, defaultOptions);
-    }, force);
-  }, []);
+  const login = React.useCallback(
+    (inputFields?: Props["fields"], force?: boolean) => {
+      try {
+        const sanitizedFields = inputFields?.toString() || defaultFields;
+        extendedWindow.FB?.getLoginStatus((res) => {
+          if (res.status === "connected") checkLoginState(res, sanitizedFields);
+          else
+            extendedWindow.FB?.login((res) => {
+              checkLoginState(res, sanitizedFields);
+            }, defaultOptions);
+        }, force);
+      } catch (error) {
+        if (handleError) handleError(error);
+        else console.error(error);
+      }
+    },
+    []
+  );
 
   const logout = React.useCallback(() => {
-    extendedWindow.FB?.logout((res) => {
-      setFbRes(res);
-    });
+    try {
+      extendedWindow.FB?.logout((res) => {
+        setFbRes(res);
+      });
+    } catch (error) {
+      if (handleError) handleError(error);
+      else console.error(error);
+    }
   }, []);
 
   React.useEffect(() => {
     if (!document.getElementById("facebook-jssdk")) {
-      loadSdk();
-      asyncInit({ appId, version });
+      try {
+        loadSdk();
+        asyncInit({ appId, version });
+      } catch (error) {
+        if (handleError) handleError(error);
+        else console.error(error);
+      }
     }
   }, []);
 

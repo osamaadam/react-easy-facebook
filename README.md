@@ -141,6 +141,31 @@ const App = () => {
 };
 ```
 
+### Error Handling
+
+```tsx
+const App = () => {
+  const { response, login } = useFacebook({
+    appId: "5135128098923510",
+    // Add error handling logic here
+    // By default, it does console.error()
+    handleError: (error) => {
+      console.error(error);
+    },
+  });
+
+  const handleLogin = () => {
+    login();
+  };
+
+  React.useEffect(() => {
+    if (response) console.log(response);
+  }, [response]);
+
+  return <button onClick={handleLogin}>login</button>;
+};
+```
+
 ## Development
 
 Install the project dependencies and run yarn link.
