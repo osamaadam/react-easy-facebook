@@ -10,4 +10,3 @@ export const asyncInit = ({ appId, cookie = true, xfbml = true, version = "v7.0"
         });
     };
 };
-//# sourceMappingURL=asyncInit.js.map

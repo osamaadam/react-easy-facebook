@@ -18,9 +18,13 @@ export interface Props {
 
 const extendedWindow: ExtendedWindow = window;
 
-const useFacebook = (props: Props) => {
-  const { appId, version, options, fields, handleError } = props;
-
+const useFacebook = ({
+  appId,
+  version,
+  options,
+  fields,
+  handleError,
+}: Props) => {
   const defaultFields = fields?.toString() || "id,email,name";
   const defaultScope = options?.scope.toString() || "email";
   const defaultOptions = { ...options, scope: defaultScope };

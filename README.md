@@ -18,11 +18,14 @@ $ yarn add react-easy-facebook
 ### Basic demo
 
 ```tsx
+import react from "react";
+import useFacebook from "react-easy-facebook";
+
 const App = () => {
   /* Initializing the hook by giving it the facebook app id. */
 
   const { response, login, logout } = useFacebook({
-    appId: "5135128098923510", // Fake id but hey, give it a try.
+    appId: "5135128098923510",
   });
 
   const handleLogin = () => {
@@ -56,7 +59,7 @@ const App = () => {
 
 ### Using with custom scopes
 
-```tsx
+```ts
 const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
@@ -67,7 +70,7 @@ const { response, login } = useFacebook({
 
 Or
 
-```tsx
+```ts
 const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
@@ -78,7 +81,7 @@ const { response, login } = useFacebook({
 
 ### Using with custom scopes and fields
 
-```tsx
+```ts
 const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
@@ -90,7 +93,7 @@ const { response, login } = useFacebook({
 
 Or
 
-```tsx
+```ts
 const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {
@@ -104,7 +107,7 @@ Generally, you should use the array syntax to get Intellisense hints. But you'll
 
 #### Example
 
-```tsx
+```ts
 const { response, login } = useFacebook({
   appId: "5135128098923510",
   options: {

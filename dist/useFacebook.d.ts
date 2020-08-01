@@ -6,7 +6,7 @@ export interface Props {
     fields?: Partial<FacebookFields>[] | string;
     handleError?: (error: Error) => any;
 }
-declare const useFacebook: (props: Props) => {
+declare const useFacebook: ({ appId, version, options, fields, handleError, }: Props) => {
     response: FacebookResponse | undefined;
     login: (inputFields?: Props["fields"], force?: boolean | undefined) => void;
     logout: () => void;

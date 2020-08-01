@@ -11,4 +11,3 @@ export const loadSdk = () => {
         (_a = fjs.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
 };
-//# sourceMappingURL=loadSdk.js.map

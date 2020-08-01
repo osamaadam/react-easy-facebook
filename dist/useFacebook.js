@@ -2,8 +2,7 @@ import React from "react";
 import { asyncInit } from "./asyncInit";
 import { loadSdk } from "./loadSdk";
 const extendedWindow = window;
-const useFacebook = (props) => {
-    const { appId, version, options, fields, handleError } = props;
+const useFacebook = ({ appId, version, options, fields, handleError, }) => {
     const defaultFields = (fields === null || fields === void 0 ? void 0 : fields.toString()) || "id,email,name";
     const defaultScope = (options === null || options === void 0 ? void 0 : options.scope.toString()) || "email";
     const defaultOptions = Object.assign(Object.assign({}, options), { scope: defaultScope });
@@ -73,4 +72,3 @@ const useFacebook = (props) => {
     return { response: fbRes, login, logout };
 };
 export default useFacebook;
-//# sourceMappingURL=useFacebook.js.map
