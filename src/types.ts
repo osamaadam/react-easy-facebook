@@ -25,21 +25,24 @@ export interface ExtendedWindow extends Window {
       cookie: boolean;
       xfbml: boolean;
       version: string;
-    }) => any;
+    }) => void;
     getLoginStatus: (
-      callback: (res: FacebookResponse) => any,
+      callback: (res: FacebookResponse) => void,
       force?: boolean
-    ) => any;
-    login: (callback: (res: FacebookResponse) => any, options?: Options) => any;
-    logout: (callback: (res: FacebookResponse) => any) => any;
+    ) => void;
+    login: (
+      callback: (res: FacebookResponse) => void,
+      options?: Options
+    ) => void;
+    logout: (callback: (res: FacebookResponse) => void) => void;
     api: (
       path: string,
       method: "GET" | "POST" | "DELETE",
       params: { fields: string },
-      callback: (user: FacebookResponse["user"]) => any
-    ) => any;
+      callback: (user: FacebookResponse["user"]) => void
+    ) => void;
   };
-  fbAsyncInit?: () => any;
+  fbAsyncInit?: () => void;
 }
 
 export type User = {
